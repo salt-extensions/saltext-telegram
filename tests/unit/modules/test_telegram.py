@@ -1,18 +1,14 @@
 """
-Tests for the Telegram execution module.
+    :codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
 
-:codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
+    Test cases for salt.modules.telegram.
 """
 
 
-import logging
+import pytest
 
 import salt.modules.telegram as telegram
-from tests.support.mixins import LoaderModuleMockMixin
 from tests.support.mock import MagicMock, Mock
-from tests.support.unit import TestCase
-
-log = logging.getLogger(__name__)
 
 
 class RequestMock(Mock):
@@ -56,31 +52,28 @@ class RequestPutResponseMock(Mock):
         return {"_id": 4321}
 
 
-class TelegramModuleTest(TestCase, LoaderModuleMockMixin):
-    """
-    Test cases for salt.modules.telegram.
-    """
-
-    def setup_loader_modules(self):
-        module_globals = {
-            "__salt__": {
-                "config.get": MagicMock(
-                    return_value={
-                        "telegram": {
-                            "chat_id": "123456789",
-                            "token": "000000000:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-                        }
+@pytest.fixture
+def configure_loader_modules():
+    module_globals = {
+        "__salt__": {
+            "config.get": MagicMock(
+                return_value={
+                    "telegram": {
+                        "chat_id": "123456789",
+                        "token": "000000000:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
                     }
-                ),
-                "requests.put": Mock(),
-            },
-            "requests": RequestMock(),
-        }
-        return {telegram: module_globals}
+                }
+            ),
+            "requests.put": Mock(),
+        },
+        "requests": RequestMock(),
+    }
+    return {telegram: module_globals}
 
-    def test_post_message(self):
-        """
-        Test the post_message function.
-        """
-        message = "Hello World!"
-        self.assertTrue(telegram.post_message(message))
+
+def test_post_message():
+    """
+    Test the post_message function.
+    """
+    message = "Hello World!"
+    assert telegram.post_message(message)
