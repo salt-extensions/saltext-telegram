@@ -4,10 +4,12 @@
     Test cases for salt.modules.telegram.
 """
 
+from unittest.mock import MagicMock
+from unittest.mock import Mock
+
 import pytest
 
-import salt.modules.telegram as telegram
-from tests.support.mock import MagicMock, Mock
+from saltext.telegram.modules import telegram
 
 
 class RequestMock(Mock):

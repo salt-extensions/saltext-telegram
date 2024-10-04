@@ -2,11 +2,12 @@
 import datetime
 import logging
 import time
+from unittest.mock import MagicMock
+from unittest.mock import patch
 
 import pytest
 
-from salt.beacons import telegram_bot_msg
-from tests.support.mock import MagicMock, patch
+from saltext.telegram.beacons import telegram_bot_msg
 
 telegram = pytest.importorskip("telegram")
 
@@ -43,9 +44,7 @@ def test_validate_config_not_list_in_accept_from(*args, **kwargs):
     ret = telegram_bot_msg.validate([{"token": "bcd", "accept_from": {"nodict": "1"}}])
     assert ret == (
         False,
-        "Configuration for telegram_bot_msg, "
-        "accept_from must be a list of "
-        "usernames.",
+        "Configuration for telegram_bot_msg, accept_from must be a list of usernames.",
     )
 
 
@@ -55,7 +54,7 @@ def test_validate_valid_config(*args, **kwargs):
 
 
 def test_call_no_updates():
-    with patch("salt.beacons.telegram_bot_msg.telegram") as telegram_api:
+    with patch("saltext.telegram.beacons.telegram_bot_msg.telegram") as telegram_api:
         token = "abc"
         config = [{"token": token, "accept_from": ["tester"]}]
         inst = MagicMock(name="telegram.Bot()")
@@ -67,11 +66,12 @@ def test_call_no_updates():
 
         ret = telegram_bot_msg.beacon(config)
         telegram_api.Bot.assert_called_once_with(token)
-        assert ret == []
+        assert isinstance(ret, list)
+        assert not ret
 
 
 def test_call_telegram_return_no_updates_for_user():
-    with patch("salt.beacons.telegram_bot_msg.telegram") as telegram_api:
+    with patch("saltext.telegram.beacons.telegram_bot_msg.telegram") as telegram_api:
         token = "abc"
         username = "tester"
         config = [{"token": token, "accept_from": [username]}]
@@ -93,11 +93,12 @@ def test_call_telegram_return_no_updates_for_user():
 
         ret = telegram_bot_msg.beacon(config)
         telegram_api.Bot.assert_called_once_with(token)
-        assert ret == []
+        assert isinstance(ret, list)
+        assert not ret
 
 
 def test_call_telegram_returning_updates():
-    with patch("salt.beacons.telegram_bot_msg.telegram") as telegram_api:
+    with patch("saltext.telegram.beacons.telegram_bot_msg.telegram") as telegram_api:
         token = "abc"
         username = "tester"
         config = [{"token": token, "accept_from": [username]}]

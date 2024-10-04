@@ -1,8 +1,5 @@
 """
 Beacon to emit Telegram messages
-
-Requires the python-telegram-bot library
-
 """
 
 import logging
@@ -26,10 +23,9 @@ __virtualname__ = "telegram_bot_msg"
 def __virtual__():
     if HAS_TELEGRAM:
         return __virtualname__
-    else:
-        err_msg = "telegram library is missing."
-        log.error("Unable to load %s beacon: %s", __virtualname__, err_msg)
-        return False, err_msg
+    err_msg = "telegram library is missing."
+    log.error("Unable to load %s beacon: %s", __virtualname__, err_msg)
+    return False, err_msg
 
 
 def validate(config):
@@ -41,9 +37,7 @@ def validate(config):
 
     config = salt.utils.beacons.list_to_dict(config)
 
-    if not all(
-        config.get(required_config) for required_config in ["token", "accept_from"]
-    ):
+    if not all(config.get(required_config) for required_config in ["token", "accept_from"]):
         return (
             False,
             "Not all required configuration for telegram_bot_msg are set.",
@@ -52,8 +46,7 @@ def validate(config):
     if not isinstance(config.get("accept_from"), list):
         return (
             False,
-            "Configuration for telegram_bot_msg, "
-            "accept_from must be a list of usernames.",
+            "Configuration for telegram_bot_msg, accept_from must be a list of usernames.",
         )
 
     return True, "Valid beacon configuration."
@@ -93,9 +86,7 @@ def beacon(config):
     latest_update_id = 0
     for update in updates:
         message = update.message
-
-        if update.update_id > latest_update_id:
-            latest_update_id = update.update_id
+        latest_update_id = max(update.update_id, latest_update_id)
 
         if message.chat.username in config["accept_from"]:
             output["msgs"].append(message.to_dict())

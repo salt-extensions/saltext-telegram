@@ -31,15 +31,6 @@ log = logging.getLogger(__name__)
 __virtualname__ = "telegram"
 
 
-def __virtual__():
-    """
-    Return virtual name of the module.
-
-    :return: The virtual name of the module.
-    """
-    return __virtualname__
-
-
 def _get_options(ret=None):
     """
     Get the Telegram options from salt.

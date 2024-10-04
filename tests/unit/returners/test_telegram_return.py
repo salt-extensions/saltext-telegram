@@ -4,10 +4,12 @@
     :codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
 """
 
+from unittest.mock import MagicMock
+from unittest.mock import patch
+
 import pytest
 
-import salt.returners.telegram_return as telegram
-from tests.support.mock import MagicMock, patch
+import saltext.telegram.returners.telegram_return as telegram
 
 
 @pytest.fixture
@@ -29,10 +31,10 @@ def test_returner():
     options = {"chat_id": "", "token": ""}
 
     with patch(
-        "salt.returners.telegram_return._get_options",
+        "saltext.telegram.returners.telegram_return._get_options",
         MagicMock(return_value=options),
     ), patch.dict(
-        "salt.returners.telegram_return.__salt__",
+        "saltext.telegram.returners.telegram_return.__salt__",
         {"telegram.post_message": MagicMock(return_value=True)},
     ):
         assert telegram.returner(ret) is True

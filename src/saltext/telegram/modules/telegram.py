@@ -27,11 +27,6 @@ __virtualname__ = "telegram"
 
 
 def __virtual__():
-    """
-    Return virtual name of the module.
-
-    :return: The virtual name of the module.
-    """
     if not HAS_REQUESTS:
         return (False, "Missing dependency requests")
     return __virtualname__
@@ -58,9 +53,7 @@ def _get_token():
 
     :return:    String: the token string
     """
-    token = __salt__["config.get"]("telegram:token") or __salt__["config.get"](
-        "telegram.token"
-    )
+    token = __salt__["config.get"]("telegram:token") or __salt__["config.get"]("telegram.token")
     if not token:
         raise SaltInvocationError("No Telegram token found")
 
@@ -106,7 +99,7 @@ def _post_message(message, chat_id, token):
     """
     url = f"https://api.telegram.org/bot{token}/sendMessage"
 
-    parameters = dict()
+    parameters = {}
     if chat_id:
         parameters["chat_id"] = chat_id
     if message:
