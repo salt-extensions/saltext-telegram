@@ -1,13 +1,5 @@
 """
 Module for sending messages via Telegram.
-
-:configuration: In order to send a message via the Telegram, certain
-    configuration is required in /etc/salt/minion on the relevant minions or
-    in the pillar. Some sample configs might look like::
-
-        telegram.chat_id: '123456789'
-        telegram.token: '00000000:xxxxxxxxxxxxxxxxxxxxxxxx'
-
 """
 
 import logging
@@ -34,7 +26,7 @@ def __virtual__():
 
 def _get_chat_id():
     """
-    Retrieves and return the Telegram's configured chat id
+    Retrieve and return the Telegram's configured chat id
 
     :return:    String: the chat id string
     """
@@ -49,7 +41,7 @@ def _get_chat_id():
 
 def _get_token():
     """
-    Retrieves and return the Telegram's configured token
+    Retrieve and return the Telegram's configured token
 
     :return:    String: the token string
     """
@@ -93,7 +85,7 @@ def _post_message(message, chat_id, token):
     Send a message to a Telegram chat.
 
     :param chat_id:     The chat id.
-    :param message:     The message to send to the telegram chat.
+    :param message:     The message to send to the Telegram chat.
     :param token:       The Telegram API token.
     :return:            Boolean if message was sent successfully.
     """

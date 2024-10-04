@@ -9,6 +9,7 @@ Salt Extension for interacting with Telegram
   :hidden:
 
   topics/installation
+  topics/configuration
 
 .. toctree::
   :maxdepth: 2

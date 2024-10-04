@@ -1,5 +1,19 @@
 """
-Beacon to emit Telegram messages
+Beacon to emit Telegram messages.
+
+Configuration example
+---------------------
+
+Include the following in the minion configuration:
+
+.. code-block:: yaml
+
+    beacons:
+      telegram_bot_msg:
+        - token: "<bot access token>"
+        - accept_from:
+          - "<valid username>"
+        - interval: 10
 """
 
 import logging
@@ -56,16 +70,6 @@ def beacon(config):
     """
     Emit a dict with a key "msgs" whose value is a list of messages
     sent to the configured bot by one of the allowed usernames.
-
-    .. code-block:: yaml
-
-        beacons:
-          telegram_bot_msg:
-            - token: "<bot access token>"
-            - accept_from:
-              - "<valid username>"
-            - interval: 10
-
     """
 
     config = salt.utils.beacons.list_to_dict(config)

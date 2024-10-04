@@ -1,25 +1,11 @@
 """
-Return salt data via Telegram.
+Return Salt data via Telegram.
 
-The following fields can be set in the minion conf file::
-
-    telegram.chat_id (required)
-    telegram.token (required)
-
-Telegram settings may also be configured as:
-
-.. code-block:: yaml
-
-    telegram:
-      chat_id: 000000000
-      token: 000000000:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-
-To use the Telegram return, append '--return telegram' to the salt command.
+To use the Telegram returner, append ``--return telegram`` to the Salt command.
 
 .. code-block:: bash
 
     salt '*' test.ping --return telegram
-
 """
 
 import logging
@@ -37,7 +23,7 @@ def _get_options(ret=None):
 
     :param ret:     The data to be sent.
     :return:        Dictionary containing the data and options needed to send
-                    them to telegram.
+                    a message to Telegram.
     """
     attrs = {"chat_id": "chat_id", "token": "token"}
 
