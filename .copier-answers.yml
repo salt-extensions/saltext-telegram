@@ -18,8 +18,6 @@ max_salt_version: '3007'
 no_saltext_namespace: false
 os_support:
   - Linux
-  - macOS
-  - Windows
 package_name: telegram
 project_name: telegram
 python_requires: '3.8'
