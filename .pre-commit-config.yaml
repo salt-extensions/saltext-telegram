@@ -2,7 +2,7 @@
 minimum_pre_commit_version: 2.4.0
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.6.0
+    rev: 2c9f875913ee60ca25ce70243dc24d5b6415598c  # v4.6.0
     hooks:
       - id: check-merge-conflict   # Check for files that contain merge conflict strings.
         args: [--assume-in-merge]
@@ -15,7 +15,7 @@ repos:
 
   # ----- Formatting ---------------------------------------------------------------------------->
   - repo: https://github.com/saltstack/pre-commit-remove-import-headers
-    rev: 1.1.0
+    rev: 209beff8e11fed83f3f0863ccfd95aa663fffaf6  # 1.1.0
     hooks:
       - id: remove-import-headers
 
@@ -37,7 +37,7 @@ repos:
 
   - repo: https://github.com/saltstack/salt-rewrite
     # Automatically rewrite code with known rules
-    rev: 2.5.2
+    rev: 8079cfb7f601e5dbad58b8449d85bb24f1e52082  # 2.5.2
     hooks:
       - id: salt-rewrite
         alias: rewrite-docstrings
@@ -47,7 +47,7 @@ repos:
 
   - repo: https://github.com/saltstack/salt-rewrite
     # Automatically rewrite code with known rules
-    rev: 2.5.2
+    rev: 8079cfb7f601e5dbad58b8449d85bb24f1e52082  # 2.5.2
     hooks:
       - id: salt-rewrite
         alias: rewrite-tests
@@ -56,17 +56,17 @@ repos:
         args: [--silent, -E, fix_docstrings]
 
   - repo: https://github.com/asottile/pyupgrade
-    rev: v3.16.0
+    rev: 32151ac97cbfd7f9dcd22e49516fb32266db45b4  # v3.16.0
     hooks:
       - id: pyupgrade
         name: Rewrite Code to be Py3.8+
         args: [
-          --py38-plus
+          --py38-plus,
         ]
         exclude: src/saltext/telegram/version.py
 
   - repo: https://github.com/PyCQA/isort
-    rev: 5.13.2
+    rev: c235f5e450b4b84e58d114ed4c589cbf454175a3  # 5.13.2
     hooks:
       - id: isort
         args: [
@@ -75,14 +75,14 @@ repos:
         exclude: src/saltext/telegram/(__init__|version).py
 
   - repo: https://github.com/psf/black
-    rev: 24.8.0
+    rev: b965c2a5026f8ba399283ba3e01898b012853c79  # 24.8.0
     hooks:
       - id: black
         args: [-l 100]
         exclude: src/saltext/telegram/version.py
 
   - repo: https://github.com/adamchainz/blacken-docs
-    rev: 1.18.0
+    rev: 4c97c4a0d921007af6fefae92d8447cfbf63720b  # 1.18.0
     hooks:
       - id: blacken-docs
         args: [--skip-errors]
@@ -93,15 +93,16 @@ repos:
 
   # ----- Security ------------------------------------------------------------------------------>
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.9
+    rev: 691f465b4bac758ea1d6dfa9b57d3881a12954fd  # 1.7.9
     hooks:
       - id: bandit
         alias: bandit-salt
         name: Run bandit against the code base
         args: [--silent, -lll, --skip, B701]
         exclude: src/saltext/telegram/version.py
+
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.9
+    rev: 691f465b4bac758ea1d6dfa9b57d3881a12954fd  # 1.7.9
     hooks:
       - id: bandit
         alias: bandit-tests
@@ -137,9 +138,9 @@ repos:
           - uv==0.4.0  # Makes this hook much faster
 
   - repo: https://github.com/Mateusz-Grzelinski/actionlint-py
-    rev: 1ca29a1b5d949b3586800190ad6cc98317cb43b8  # v1.7.1.15
+    rev: c01fb5723b54075325cd9b5e5665a9ae84baf950  # v1.7.1.15
     hooks:
       - id: actionlint
         additional_dependencies:
-          - shellcheck-py>=0.9.0.5
+          - shellcheck-py==0.10.0.1
   # <---- Code Analysis --------------------------------------------------------------------------

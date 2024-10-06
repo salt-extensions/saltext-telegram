@@ -29,7 +29,7 @@ jobs:
 
   changed-files-debug:
     name: Changed Files Debug Output
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: always()
     needs:
       - get-changed-files
@@ -107,7 +107,7 @@ jobs:
     # This step is just so we can make github require this step, to pass checks
     # on a pull request instead of requiring all
     name: Set the CI Pipeline Exit Status
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     if: always()
     needs:
       - test
@@ -119,7 +119,7 @@ jobs:
     steps:
       - name: Download Exit Status Files
         if: always()
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@fa0a91b85d4f404e444e00e005971372dc801d16  # v4.1.8
         with:
           path: exitstatus
           pattern: exitstatus-*
@@ -127,7 +127,7 @@ jobs:
 
       - name: Delete Exit Status Artifacts
         if: always()
-        uses: geekyeggo/delete-artifact@v5
+        uses: geekyeggo/delete-artifact@7ee91e82b4a7f3339cd8b14beace3d826a2aac39  # v5.1.0
         with:
           name: exitstatus-*
           useGlob: true
