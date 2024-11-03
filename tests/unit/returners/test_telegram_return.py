@@ -30,11 +30,14 @@ def test_returner():
     }
     options = {"chat_id": "", "token": ""}
 
-    with patch(
-        "saltext.telegram.returners.telegram_return._get_options",
-        MagicMock(return_value=options),
-    ), patch.dict(
-        "saltext.telegram.returners.telegram_return.__salt__",
-        {"telegram.post_message": MagicMock(return_value=True)},
+    with (
+        patch(
+            "saltext.telegram.returners.telegram_return._get_options",
+            MagicMock(return_value=options),
+        ),
+        patch.dict(
+            "saltext.telegram.returners.telegram_return.__salt__",
+            {"telegram.post_message": MagicMock(return_value=True)},
+        ),
     ):
         assert telegram.returner(ret) is True
