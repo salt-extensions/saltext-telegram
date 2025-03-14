@@ -1,7 +1,7 @@
 """
-    Test Telegram Returner
+Test Telegram Returner
 
-    :codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
+:codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
 """
 
 from unittest.mock import MagicMock

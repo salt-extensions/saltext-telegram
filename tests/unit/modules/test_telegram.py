@@ -1,7 +1,7 @@
 """
-    :codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
+:codeauthor: :email:`Roald Nefs (info@roaldnefs.com)`
 
-    Test cases for salt.modules.telegram.
+Test cases for salt.modules.telegram.
 """
 
 from unittest.mock import MagicMock
